@@ -1,22 +1,20 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
-    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.weatherapp"
+    namespace = "com.weatherapp.data"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.weatherapp"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String","WEATHER_API_KEY", "\"c9bb8d6803e84bb0ac865526241809\"")
     }
 
     buildTypes {
@@ -36,20 +34,15 @@ android {
         jvmTarget = "17"
     }
 
-    buildFeatures {
-        dataBinding = true
-    }
-
-    kapt {
-        correctErrorTypes = true
+    buildFeatures{
+        buildConfig = true
     }
 }
 
 dependencies {
-    implementation(project(":di"))
     implementation(project(":domain"))
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    api(libs.retrofit)
+    api(libs.retrofit.converter.gson)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
