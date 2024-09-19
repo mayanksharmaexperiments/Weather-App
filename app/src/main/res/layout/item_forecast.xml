@@ -13,7 +13,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/screen_padding">
+        android:layout_margin="@dimen/screen_padding"
+        app:cardCornerRadius="@dimen/screen_padding">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,11 +23,11 @@
 
             <TextView
                 android:id="@+id/tv_data"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{dayDetails.date}"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="18/9" />
@@ -42,40 +43,44 @@
 
             <TextView
                 android:id="@+id/tv_description"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_padding"
                 android:ellipsize="end"
-                android:maxLength="15"
+                android:maxLength="20"
                 android:maxLines="2"
                 android:text="@{dayDetails.day.condition.text}"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/img_icon"
                 app:layout_constraintStart_toEndOf="@+id/img_icon"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/img_icon"
                 tools:text="Sunny" />
 
 
             <TextView
                 android:id="@+id/tv_high"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLength="15"
-                android:text="@{String.valueOf(dayDetails.day.maxTempC)}"
+                android:text="@{String.format(@string/high_temp,dayDetails.day.maxTempC)}"
+                app:layout_constraintBottom_toTopOf="@+id/tv_low"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="High : 23.7" />
 
             <TextView
                 android:id="@+id/tv_low"
+                style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
                 android:ellipsize="end"
                 android:maxLength="15"
-                android:text="@{String.valueOf(dayDetails.day.minTempC)}"
+                android:text="@{String.format(@string/low_temp,dayDetails.day.minTempC)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_high"
                 app:layout_constraintTop_toBottomOf="@+id/tv_high"
                 tools:text="Low : 23.7" />
 

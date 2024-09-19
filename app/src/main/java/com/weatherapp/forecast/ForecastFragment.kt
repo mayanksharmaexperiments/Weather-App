@@ -19,7 +19,7 @@ class ForecastFragment : BaseFragment() {
 
     private lateinit var binding: FragmentForecastBinding
     private val viewModel: ForecastViewModel by viewModels()
-    private lateinit var adapter: ForecastAdapter
+
     private val args: ForecastFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -31,12 +31,12 @@ class ForecastFragment : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_forecast, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        val forecastAdapter = ForecastAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = forecastAdapter
+        }
 
-        adapter = ForecastAdapter()
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
-
-        // Observe changes in weather data
         viewModel.forecastResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -45,7 +45,7 @@ class ForecastFragment : BaseFragment() {
 
                 is Resource.Success -> {
                     showProgressBar(false)
-                    adapter.setForecastList(response.data?.forecast?.forecastDays)
+                    forecastAdapter.setForecastList(response.data?.forecast?.forecastDays)
                 }
 
                 is Resource.Error -> {
@@ -56,9 +56,9 @@ class ForecastFragment : BaseFragment() {
         }
 
         viewModel.fetchForecast(args.city)
+        binding.tvCity.text = args.city
 
         return binding.root
     }
-
 
 }

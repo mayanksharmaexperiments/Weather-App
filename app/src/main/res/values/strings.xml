@@ -9,4 +9,6 @@
     <string name="wind_speed_km_h">%.2f km/h</string>
     <string name="wind_speed">Wind speed</string>
     <string name="humidity">Humidity</string>
+    <string name="high_temp">High : %.2f°C</string>
+    <string name="low_temp">Low : %.2f°C</string>
 </resources>

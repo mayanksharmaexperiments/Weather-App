@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/searchCityFragment">
 
     <fragment
         android:id="@+id/searchCityFragment"
         android:name="com.weatherapp.searchcity.SearchCityFragment"
-        android:label="@string/search_city">
+        android:label="@string/search_city"
+        tools:layout="@layout/fragment_search_city">
         <action
             android:id="@+id/action_searchCityFragment_to_currentWeatherFragment"
             app:destination="@id/currentWeatherFragment">
@@ -22,7 +24,8 @@
     <fragment
         android:id="@+id/currentWeatherFragment"
         android:name="com.weatherapp.currentweather.CurrentWeatherFragment"
-        android:label="@string/today">
+        android:label="@string/today"
+        tools:layout="@layout/fragment_current_weather">
 
         <argument
             android:name="city"
@@ -41,7 +44,8 @@
     <fragment
         android:id="@+id/forecastFragment"
         android:name="com.weatherapp.forecast.ForecastFragment"
-        android:label="@string/five_day_forecast">
+        android:label="@string/five_day_forecast"
+        tools:layout="@layout/fragment_forecast">
         <argument
             android:name="city"
             app:argType="string" />

@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.weatherapp.databinding.ItemCityBinding
 import com.weatherapp.databinding.ItemForecastBinding
 import com.weatherapp.domain.entity.ForecastDayEntity
 
-class ForecastAdapter() :
+class ForecastAdapter :
     RecyclerView.Adapter<ForecastAdapter.ForecastViewModel>() {
 
     private var forecastList: List<ForecastDayEntity> = emptyList()
