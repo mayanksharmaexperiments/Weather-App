@@ -3,6 +3,8 @@
 
 Welcome to the Weather App! This Android application provides users with an intuitive interface to search for weather details in their desired cities and view a five-day weather forecast.
 
+![image](https://github.com/user-attachments/assets/6d02c515-0c6e-44d7-b1cc-aa18e28c44af)
+
 ## Features
 
 - **City Search**: Easily search for any city to get the current weather details.
