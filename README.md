@@ -67,7 +67,7 @@ Make sure you have the following installed:
 To run this project locally, follow these steps:
 1. Clone the repository to your local machine:
    ```bash
-   git clone [https://github.com/your-repo/android-native-project.git](https://github.com/mayanksharmaexperiments/Weather-App.git)
+   git clone https://github.com/mayanksharmaexperiments/Weather-App.git
 2. Open the project in Android Studio.
 3. Build the project and run it on your Android device or emulator.
 
