@@ -1,9 +1,6 @@
 package com.weatherapp.data.datamodel
 
 import com.google.gson.annotations.SerializedName
-import com.weatherapp.domain.entity.ConditionEntity
-import com.weatherapp.domain.entity.CurrentEntity
-import com.weatherapp.domain.entity.CurrentWeatherResponseEntity
 import com.weatherapp.domain.entity.DayEntity
 import com.weatherapp.domain.entity.ForecastDayEntity
 import com.weatherapp.domain.entity.ForecastEntity

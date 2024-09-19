@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchCityFragment">
+
+    <fragment
+        android:id="@+id/searchCityFragment"
+        android:name="com.weatherapp.searchcity.SearchCityFragment"
+        android:label="@string/search_city">
+        <action
+            android:id="@+id/action_searchCityFragment_to_currentWeatherFragment"
+            app:destination="@id/currentWeatherFragment">
+
+            <argument
+                android:name="city"
+                app:argType="string" />
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/currentWeatherFragment"
+        android:name="com.weatherapp.currentweather.CurrentWeatherFragment"
+        android:label="@string/today">
+
+        <argument
+            android:name="city"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_currentWeatherFragment_to_forecastFragment"
+            app:destination="@id/forecastFragment">
+            <argument
+                android:name="city"
+                app:argType="string" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forecastFragment"
+        android:name="com.weatherapp.forecast.ForecastFragment"
+        android:label="@string/five_day_forecast">
+        <argument
+            android:name="city"
+            app:argType="string" />
+    </fragment>
+
+
+</navigation>

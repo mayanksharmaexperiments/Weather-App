@@ -2,10 +2,21 @@ package com.weatherapp
 
 import android.os.Bundle
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import com.weatherapp.databinding.ActivityMainBinding
 import com.weatherapp.domain.Resource
 import com.weatherapp.domain.usecase.WeatherUseCase
+import com.weatherapp.searchcity.SearchCityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -16,49 +27,29 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var weatherUseCase: WeatherUseCase
-
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        navController = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+        setSupportActionBar(findViewById(R.id.toolbar))
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+    }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            weatherUseCase.searchCity("Jaipur")
-                .collectLatest { response ->
-                    withContext(Dispatchers.Main) {
-                        when (response) {
-                            is Resource.Loading -> {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "Loading",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 
-                            }
+    fun showProgressBar(isVisible: Boolean) {
+        binding.progressBar.isVisible = isVisible
+    }
 
-                            is Resource.Success -> {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    response.data.toString(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-
-                            is Resource.Error -> {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    response.message,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    }
-
-
-                }
-        }
-
+    fun showToolbar(isVisible: Boolean) {
+        binding.toolbar.isVisible = isVisible
     }
 
 }
