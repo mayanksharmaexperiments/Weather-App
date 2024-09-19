@@ -11,4 +11,5 @@
     <string name="humidity">Humidity</string>
     <string name="high_temp">High : %.2f°C</string>
     <string name="low_temp">Low : %.2f°C</string>
+    <string name="percentage">%d%%</string>
 </resources>

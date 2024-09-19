@@ -9,6 +9,10 @@
             name="weatherDetails"
             type="com.weatherapp.domain.entity.CurrentWeatherResponseEntity" />
 
+        <variable
+            name="fragment"
+            type="com.weatherapp.currentweather.CurrentWeatherFragment" />
+
 
         <import type="android.view.View" />
 
@@ -18,68 +22,89 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/screen_padding">
+        android:visibility="@{weatherDetails==null ? View.GONE : View.VISIBLE}">
+
+        <TextView
+            android:id="@+id/tv_city"
+            style="@style/TextAppearance.AppCompat.Display2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/screen_padding"
+            android:text="@{fragment.args.city}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/view_separator_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="London" />
+
+
+        <View
+            android:id="@+id/view_separator_city"
+            android:layout_width="@dimen/_250dp"
+            android:layout_height="@dimen/_1dp"
+            android:layout_marginBottom="@dimen/screen_padding"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/tv_temp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_temp"
+            style="@style/TextAppearance.AppCompat.Display3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/screen_padding"
             android:text="@{String.format(@string/temperature_with_degree,weatherDetails.current.tempC)}"
-            android:textSize="45sp"
             android:textStyle="bold"
-            android:visibility="@{weatherDetails==null ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/img_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="30 C" />
 
         <ImageView
             android:id="@+id/img_icon"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginBottom="@dimen/screen_padding"
-            android:visibility="@{weatherDetails==null ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/tv_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_description"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{weatherDetails.current.condition.text}"
-            android:textSize="30sp"
-            android:visibility="@{weatherDetails==null ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.44"
+            app:layout_constraintVertical_bias="0.49"
             tools:text="Partly cloudy" />
 
 
-        <TextView
-            android:id="@+id/tv_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_padding"
-            android:textStyle="bold"
-            android:visibility="@{weatherDetails==null ? View.GONE : View.VISIBLE}"
+        <View
+            android:id="@+id/view_separator"
+            android:layout_width="@dimen/_4dp"
+            android:layout_height="@dimen/_4dp"
+            android:layout_marginTop="@dimen/_25dp"
+            android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            tools:text="London" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:visibility="@{weatherDetails==null ? View.GONE : View.VISIBLE}"
+            android:layout_marginHorizontal="@dimen/screen_padding"
+            android:layout_marginTop="@dimen/_25dp"
+            app:cardCornerRadius="@dimen/screen_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_city">
+            app:layout_constraintTop_toBottomOf="@+id/view_separator">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -88,6 +113,7 @@
 
                 <TextView
                     android:id="@+id/tv_humidity"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/humidity"
@@ -97,9 +123,10 @@
 
                 <TextView
                     android:id="@+id/tv_humidity_value"
+                    style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(weatherDetails.current.humidity)}"
+                    android:text="@{String.format(@string/percentage, weatherDetails.current.humidity)}"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -107,15 +134,17 @@
 
                 <TextView
                     android:id="@+id/tv_wind_speed"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/screen_padding"
+                    android:text="@string/wind_speed"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_humidity"
-                    android:text="@string/wind_speed" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_humidity" />
 
                 <TextView
                     android:id="@+id/tv_wind_speed_value"
+                    style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/screen_padding"
@@ -133,8 +162,11 @@
 
         <Button
             android:id="@+id/btn_5day_forecast"
-            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.ActionMode"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/screen_padding"
+            android:onClick="@{()-> fragment.onContinue()}"
             android:text="@string/five_day_forecast"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

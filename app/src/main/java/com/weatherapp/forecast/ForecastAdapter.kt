@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.weatherapp.databinding.ItemForecastBinding
 import com.weatherapp.domain.entity.ForecastDayEntity
+import com.weatherapp.utils.loadUrl
 
 class ForecastAdapter :
     RecyclerView.Adapter<ForecastAdapter.ForecastViewModel>() {
@@ -34,10 +35,7 @@ class ForecastAdapter :
 
         fun bind(dayDetails: ForecastDayEntity) {
             binding.dayDetails = dayDetails
-
-            Glide.with(binding.root.context).load("https:${dayDetails.day.condition.icon}")
-                .into(binding.imgIcon)
-
+            binding.imgIcon.loadUrl("https:${dayDetails.day.condition.icon}")
             binding.executePendingBindings()
         }
 

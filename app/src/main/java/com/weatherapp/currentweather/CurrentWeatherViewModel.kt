@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weatherapp.domain.Resource
 import com.weatherapp.domain.entity.CurrentWeatherResponseEntity
-import com.weatherapp.domain.entity.SearchCityResponseEntity
 import com.weatherapp.domain.usecase.WeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +23,5 @@ class CurrentWeatherViewModel @Inject constructor(private val weatherUseCase: We
             currentWeatherResponse.postValue(response)
         }
     }
-
 
 }

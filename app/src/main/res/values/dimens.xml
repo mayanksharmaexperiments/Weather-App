@@ -3,4 +3,8 @@
     <dimen name="icon_size">50dp</dimen>
     <dimen name="screen_padding">16dp</dimen>
     <dimen name="space_small">4dp</dimen>
+    <dimen name="_250dp">250dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_4dp">4dp</dimen>
+    <dimen name="_25dp">25dp</dimen>
 </resources>
